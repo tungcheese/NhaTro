@@ -12,6 +12,12 @@ namespace NhaTro
         string nghenghiep;
         string cccd;
         string diachi;
+<<<<<<< Updated upstream
 
+=======
+        DateTime ngaysinh;
+        string quequan;
+        string abc;
+>>>>>>> Stashed changes
     }
 }
