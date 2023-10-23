@@ -14,5 +14,6 @@ namespace NhaTro
         string diachi;
         DateTime ngaysinh;
         string quequan;
+        string assdasd;
     }
 }
