@@ -12,6 +12,6 @@ namespace NhaTro
         string nghenghiep;
         string cccd;
         string diachi;
-
+        DateTime ngaysinh;
     }
 }
