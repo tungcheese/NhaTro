@@ -1,7 +1,9 @@
 ﻿public class CongTy
 {
-    string diachi;
+    string ten;
     int masothue;
+    string diachi;
+    int tienhoahong;
     public CongTy(string diachi, int masothue)
     {
         this.diachi = diachi;
