@@ -8,6 +8,5 @@
     {
         this.sophong = sophong;
         this.ngh = ngh;
-
     }
 }

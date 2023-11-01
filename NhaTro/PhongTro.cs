@@ -1,5 +1,4 @@
-﻿@@ -0,0 + 1,60 @@
-﻿public class PhongTro
+﻿﻿public class PhongTro
 {
     //Info
     int sophong;
@@ -9,23 +8,31 @@
     string[] noithat;
     string yeucau;
     bool gioitinh;
+
+    //HopDong
+    HopDong hopdong;
+
+    //ThoiHan
     DateTime hanthue;
-    Nguoi nguoia; Nguoi nguoib; Nguoi nguoic; Nguoi nguoid;
+
+    //Nguoi
+    NguoiChoThue nct;
+    NguoiThue[] nt;
 
     //Tien
     int tiendien;
     int tiennuoc;
-    int tienrac = 30000;
+    int tienrac;
 
     //Constructor
-    public PhongTro(int sophong, string yeucau, bool gioitinh, string[] noithat, int dientich = 20)
+    public PhongTro(NguoiChoThue nct, int sophong, string yeucau, bool gioitinh, string[] noithat, int dientich = 20)
     {
         this.sophong = sophong;
-        int bonus = 0;
+        int tiennoithat = 0;
 
         //Bonus
-        foreach (string a in noithat) { bonus++; }
-        this.giaphong = giaphong + (dientich - 20) * 100000 + bonus * 100000;
+        foreach (string a in noithat) { tiennoithat++; }
+        this.giaphong = giaphong + (dientich - 20) * 100000 + tiennoithat * 50000;
         this.yeucau = yeucau;
         this.gioitinh = gioitinh;
         this.noithat = noithat;
@@ -46,16 +53,36 @@
 
     public void DienNuoc()
     {
+        this.tienrac = 17000 * songuoi;
         Random rnd = new Random();
         this.tiendien = (50000 + rnd.Next(-10, 10)) * songuoi;
-        this.tiennuoc = 10000 * songuoi;
+        this.tiennuoc = 17750 * songuoi;
     }
 
-    public void NhapTro(Nguoi nguoia, Nguoi nguoib = null, Nguoi nguoic = null, Nguoi nguoid = null)
+    public void NhapTro(DateTime ngaynhapphong, NguoiThue[] nguoithue, NguoiMoiGioi nmg = null)
     {
-        this.nguoia = nguoia;
-        this.nguoib = nguoib;
-        this.nguoic = nguoic;
-        this.nguoid = nguoid;
+        HopDong hopdong = new HopDong(nguoithue[0], nct, nmg, sophong, giaphong, ngaynhapphong);
+        int count = 0;
+        foreach (NguoiThue nthue in nguoithue) { count++; }
+        this.songuoi = count;
+        this.hopdong = hopdong;
+        this.nt = nguoithue;
+    }
+
+    public void HuyPhong(DateTime ngayhuy)
+    {
+        int songayhuy = DateTime.Compare(ngayhuy, hopdong.HetHan);
+        if (songayhuy < 0)
+        {
+            Console.WriteLine("Boi thuong");
+        }
+        else if (songayhuy == 0)
+        {
+            Console.WriteLine("Tra dung han");
+        }
+        else
+        {
+            Console.WriteLine("Tiep tuc gia han");
+        }
     }
 }
