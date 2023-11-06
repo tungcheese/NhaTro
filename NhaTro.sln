@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CongTy", "..\CongTy\CongTy.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheNganHang", "..\TheNganHang\TheNganHang.csproj", "{AA8148BD-A007-4C3A-92A2-DBB0E8DDB3C5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Student", "..\Student\Student\Student.csproj", "{3BFA39B1-C61B-420F-8B3D-EF677F880370}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{AA8148BD-A007-4C3A-92A2-DBB0E8DDB3C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA8148BD-A007-4C3A-92A2-DBB0E8DDB3C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA8148BD-A007-4C3A-92A2-DBB0E8DDB3C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BFA39B1-C61B-420F-8B3D-EF677F880370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BFA39B1-C61B-420F-8B3D-EF677F880370}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BFA39B1-C61B-420F-8B3D-EF677F880370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BFA39B1-C61B-420F-8B3D-EF677F880370}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
