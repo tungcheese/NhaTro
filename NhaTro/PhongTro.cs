@@ -59,14 +59,19 @@
         this.tiennuoc = 17750 * songuoi;
     }
 
-    public void NhapTro(DateTime ngaynhapphong, NguoiThue[] nguoithue, NguoiMoiGioi nmg = null)
+    public bool NhapTro(DateTime ngaynhapphong, NguoiThue[] nguoithue, NguoiMoiGioi nmg = null)
     {
         HopDong hopdong = new HopDong(nguoithue[0], nct, nmg, sophong, giaphong, ngaynhapphong);
         int count = 0;
-        foreach (NguoiThue nthue in nguoithue) { count++; }
+        foreach (NguoiThue nthue in nguoithue) 
+        {
+            if (nthue.GioiTinh != gioitinh) { return false; }
+            count++; 
+        }
         this.songuoi = count;
         this.hopdong = hopdong;
         this.nt = nguoithue;
+        return true;
     }
 
     public void HuyPhong(DateTime ngayhuy)

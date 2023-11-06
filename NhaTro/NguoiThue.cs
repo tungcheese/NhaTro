@@ -11,10 +11,9 @@
     public NguoiGiamHo NGH { get { return ngh; } }
 
     //Constructor
-    public NguoiThue(string hoten, string nghenghiep, string cccd, DateTime ngaysinh, string quequan, int sophong, NguoiGiamHo ngh = null)
-        : base(hoten, nghenghiep, cccd, ngaysinh, quequan)
+    public NguoiThue(string hoten, string nghenghiep, int cccd, bool gioitinh, DateTime ngaysinh, string quequan, NguoiGiamHo ngh = null)
+        : base(hoten, nghenghiep, cccd, gioitinh, ngaysinh, quequan)
     {
-        this.sophong = sophong;
         this.ngh = ngh;
     }
 }
