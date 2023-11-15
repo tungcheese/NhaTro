@@ -6,6 +6,7 @@ class Program
 {
     static void Main(string[] args)
     {
+        /*
         //NguoiThue
         NguoiThue[] a = new NguoiThue[10];
         a[0] = new NguoiThue("Nguyen Van A", "Sinh vien", CongCu.Tao() , new DateTime(2004, 4, 12), "Lam Dong");
@@ -42,9 +43,16 @@ class Program
         //PhongTro P101 = new PhongTro(aaa, 101, "a", true, new List<string> { "a", "b" }, 30);
         //PhongTro P102 = new PhongTro(aaa, 102, "b", false, new List<string> { "a", "b" });
 
-        foreach (NguoiThue nt in a)
-        {
-            Console.WriteLine(nt.CCCD + nt.GioiTinh);
-        }
+
+        //ReadFile.Write2<Student>("student2.csv", st.ToList());
+        //List<Student> sts = ReadFile.Read2<Student>("student2.csv");
+        //foreach (Student student in sts)
+        //{
+        //    student.Print();
+        //}
+
+        */
+
+
     }
 }

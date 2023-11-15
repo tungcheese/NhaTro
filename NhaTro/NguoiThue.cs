@@ -96,4 +96,19 @@
     {
         ///
     }
+
+    public void LamHong(PhongTro phongtro)
+    {
+        if (phongtro.NoiThat != null && hopdong != null)
+        {
+            Random rnd = new Random();
+            foreach (string item in phongtro.NoiThat)
+            {
+                for (int i = 1; i < rnd.Next(3); i++)
+                {
+                    phongtro.NoiThat.RemoveAt(rnd.Next(phongtro.NoiThat.Count()));
+                }
+            }
+        }
+    }
 }

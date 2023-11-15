@@ -1,9 +1,15 @@
 ﻿public class HopDong
 {
     //Nguoi
+    List<string> noithat;
     NguoiThue nt;
     NguoiChoThue nct;
     NguoiGiamHo ngh;
+    public List<string> NoiThat
+    {
+        get { return noithat; }
+        set { noithat = value; }
+    }
     public NguoiThue NT { get { return nt; } }
     public NguoiChoThue NCT { get { return nct; } }
     public NguoiGiamHo NGH { get { return ngh; } }
@@ -29,6 +35,7 @@
         this.nct = nct;
         this.phongtro = phongtro;
         this.tienthue = tienthue;
+        this.noithat = phongtro.NoiThat;
 
         //Thoi han
         this.batdau = batdau;

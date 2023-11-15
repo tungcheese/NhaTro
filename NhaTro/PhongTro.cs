@@ -53,6 +53,7 @@
 
     //Tien
     int tiendien;
+
     public int TienDien
     {
         get { return tiendien; }
@@ -70,20 +71,26 @@
         get { return tienrac; }
         set { tienrac = value; }
     }
+    int tienwifi;
+    public int TienWifi
+    {
+        get { return tienwifi; }
+        set { tienwifi = value; }
+    }
 
     //Constructor
     public PhongTro(NguoiChoThue nct, int sophong, string yeucau, bool gioitinh, List<string> noithat, int dientich = 20)
     {
         this.sophong = sophong;
         this.nct = nct;
-        int tiennoithat = 0;
 
         //Luu phong tro
         nct.PhongTro.Add(this);
 
         //Tinh tien noi that
-        foreach (string a in noithat) { tiennoithat++; }
-        this.giaphong = giaphong + (dientich - 20) * 100000 + tiennoithat * 50000;
+        int sonoithat = 0;
+        foreach (string a in noithat) { sonoithat++; }
+        this.giaphong = giaphong + (dientich - 20) * 100000 + sonoithat * 50000;
         
         this.yeucau = yeucau;
         this.gioitinh = gioitinh;
