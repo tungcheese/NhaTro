@@ -33,21 +33,21 @@ class Program
 
         //Nguoi giam ho
         NguoiGiamHo[] ngh = new NguoiGiamHo[2];
-        ngh[0] = new NguoiGiamHo ("Le Thi T", "Giao vien", CongCu.Tao(), new DateTime(1987, 08, 15), "Can Tho");
-        ngh[1] = new NguoiGiamHo("Nguyen Bao A", "Ky su", CongCu.Tao(), new DateTime(1975, 06, 07), "Dong Thap");
+        ngh[0] = new NguoiGiamHo ("Le Thi T", "Giao vien", CongCu.Tao(), new DateTime(1987, 08, 15), "Can Tho", 10000000);
+        ngh[1] = new NguoiGiamHo("Nguyen Bao A", "Ky su", CongCu.Tao(), new DateTime(1975, 06, 07), "Dong Thap", 100000000);
         
         //NguoiThue
         NguoiThue[] nt = new NguoiThue[10];
-        nt[0] = new NguoiThue("Nguyen Van A", "Sinh vien", CongCu.Tao() , new DateTime(2004, 4, 12), "Lam Dong", ngh[0]);
-        nt[1] = new NguoiThue("Huynh Thi B", "Giang vien", CongCu.Tao(), new DateTime(1979, 7, 23), "Dak Nong", ngh[1]);
-        nt[2] = new NguoiThue("Tran Thanh C", "Hoc sinh", CongCu.Tao(), new DateTime(2008, 10, 4), "Hau Giang");
-        nt[3] = new NguoiThue("Bui Viet D", "Sinh vien", CongCu.Tao(), new DateTime(2001, 3, 18), "Quy Nhon");
-        nt[4] = new NguoiThue("Le Cho E", "Sinh vien", CongCu.Tao(), new DateTime(2003, 12, 30), "Vinh Long");
-        nt[5] = new NguoiThue("La Van F", "Sinh vien", CongCu.Tao(), new DateTime(2000, 2, 25), "Binh Phuoc");
-        nt[6] = new NguoiThue("Nguyen Cong G", "Hoc sinh", CongCu.Tao(), new DateTime(2010, 9, 15), "Da Nang");
-        nt[7] = new NguoiThue("Nguyen Le Phuong H", "Giang vien", CongCu.Tao(), new DateTime(1958, 3, 9), "Tien Giang");
-        nt[8] = new NguoiThue("Tran Van I", "That nghiep", CongCu.Tao(), new DateTime(1994, 1, 31), "Ha Noi");
-        nt[9] = new NguoiThue("Tran Minh K", "Hoc sinh", CongCu.Tao(), new DateTime(2020, 7, 1), "Bac Can");
+        nt[0] = new NguoiThue("Nguyen Van A", "Sinh vien", CongCu.Tao() , new DateTime(2006, 4, 12), "Lam Dong", 10000000, ngh[0]);
+        nt[1] = new NguoiThue("Huynh Thi B", "Giang vien", CongCu.Tao(), new DateTime(1979, 7, 23), "Dak Nong", 10000000);
+        nt[2] = new NguoiThue("Tran Thanh C", "Hoc sinh", CongCu.Tao(), new DateTime(2008, 10, 4), "Hau Giang", 10000000, ngh[1]);
+        nt[3] = new NguoiThue("Bui Viet D", "Sinh vien", CongCu.Tao(), new DateTime(2001, 3, 18), "Quy Nhon", 10000000);
+        nt[4] = new NguoiThue("Le Cho E", "Sinh vien", CongCu.Tao(), new DateTime(2003, 12, 30), "Vinh Long", 10000000);
+        nt[5] = new NguoiThue("La Van F", "Sinh vien", CongCu.Tao(), new DateTime(2000, 2, 25), "Binh Phuoc", 10000000);
+        nt[6] = new NguoiThue("Nguyen Cong G", "Hoc sinh", CongCu.Tao(), new DateTime(2010, 9, 15), "Da Nang", 10000000, ngh[1]);
+        nt[7] = new NguoiThue("Nguyen Le Phuong H", "Giang vien", CongCu.Tao(), new DateTime(1958, 3, 9), "Tien Giang", 10000000);
+        nt[8] = new NguoiThue("Tran Van I", "That nghiep", CongCu.Tao(), new DateTime(1994, 1, 31), "Ha Noi", 10000000);
+        nt[9] = new NguoiThue("Tran Minh K", "Hoc sinh", CongCu.Tao(), new DateTime(2000, 7, 1), "Bac Can", 10000000);
 
         //Cong ty
         CongTy[] ct = new CongTy[2];
@@ -63,6 +63,8 @@ class Program
         nt[2].NhapTro(DateTime.Now, a[2]);
         nt[3].NhapTro(DateTime.Now, a[3]);
         nt[4].NhapTro(DateTime.Now, a[4]);
+        nt[5].NhapTro(DateTime.Now, a[5]);
+        nt[6].NhapTro(DateTime.Now, a[6]);
 
         DocFile.Write<NguoiThue>("nguoithue.csv", nt.ToList());
         //List<Student> sts = ReadFile.Read2<Student>("student2.csv");

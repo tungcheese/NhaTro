@@ -25,8 +25,8 @@ public class NguoiThue: Nguoi
     }
 
     //Constructor
-    public NguoiThue(string hoten, string nghenghiep, string cccd, DateTime ngaysinh, string quequan, NguoiGiamHo ngh = null)
-        : base(hoten, nghenghiep, cccd, ngaysinh, quequan)
+    public NguoiThue(string hoten, string nghenghiep, string cccd, DateTime ngaysinh, string quequan, int tien = 0, NguoiGiamHo ngh = null)
+        : base(hoten, nghenghiep, cccd, ngaysinh, quequan, tien)
     {
         this.ngh = ngh;
     }
@@ -78,7 +78,7 @@ public class NguoiThue: Nguoi
         }
         //Them nguoi vao phong tro
         phongtro.NT = new List<NguoiThue> { this };
-        phongtro.NT.AddRange(nguoithue);
+        if (nguoithue != null) { phongtro.NT.AddRange(nguoithue); }
         phongtro.SoNguoi = phongtro.NT.Count;
         return true;
     }
