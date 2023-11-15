@@ -4,10 +4,16 @@
     {
         Random rnd = new Random();
         int mavung = rnd.Next(97);
+        string smavung = (mavung < 10) ? "00" : "0";
         int gioitinh = rnd.Next(4);
         int namsinh = rnd.Next(100);
-        int socuoi = rnd.Next(100000);
-        return "0" + mavung.ToString() + gioitinh.ToString() + namsinh.ToString() + "0" + socuoi.ToString();
+        string snamsinh = (namsinh < 10) ? "0" : "";
+        string socuoi = "";
+        for (int i = 0; i<5;i++)
+        {
+            socuoi+=rnd.Next(10).ToString();
+        }
+        return smavung + mavung.ToString() + gioitinh.ToString() + snamsinh + namsinh.ToString() + "0" + socuoi;
     }
 
     public static bool GioiTinh(string cccd)

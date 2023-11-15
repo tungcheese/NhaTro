@@ -1,4 +1,6 @@
-﻿public class NguoiThue: Nguoi
+﻿using System.Collections;
+using CsvHelper.Configuration.Attributes;
+public class NguoiThue: Nguoi
 {
     //Unique information
     int sophong;
@@ -6,9 +8,21 @@
     NguoiGiamHo ngh;
 
     //Get set
-    public int SoPhong { get { return sophong; } }
-    public HopDong HD { get { return hopdong; } }
-    public NguoiGiamHo NGH { get { return ngh; } }
+    public int SoPhong 
+    { 
+        get { return sophong; }
+        set { sophong = value; }
+    }
+    public HopDong HD 
+    { 
+        get { return hopdong; } 
+        set { hopdong = value; }
+    }
+    public NguoiGiamHo NGH 
+    { 
+        get { return ngh; } 
+        set { ngh = value; }
+    }
 
     //Constructor
     public NguoiThue(string hoten, string nghenghiep, string cccd, DateTime ngaysinh, string quequan, NguoiGiamHo ngh = null)
@@ -36,12 +50,12 @@
         }
     }
 
-    public bool NhapTro(DateTime ngaynhapphong, PhongTro phongtro, string yeucau, List<NguoiThue> nguoithue = null, NguoiMoiGioi nmg = null)
+    public bool NhapTro(DateTime ngaynhapphong, PhongTro phongtro, string yeucau = "", List<NguoiThue> nguoithue = null, NguoiMoiGioi nmg = null)
     {
         //Kiem tra dieu kien nhap tro
         if (!phongtro.Trong()) { return false; }
         //Check 18 tuoi co nguoi bao ho
-        int tuoi = (int)DateTime.Now.Subtract(nguoithue[0].NgaySinh).TotalDays / 365;
+        int tuoi = (int)DateTime.Now.Subtract(this.NgaySinh).TotalDays / 365;
         if (tuoi < 18 && this.NGH == null) { return false; }
         if (this.GioiTinh != phongtro.GioiTinh) { return false; }
         if (tuoi < 18)
@@ -56,6 +70,7 @@
         //Khoi tao hopdong
         HopDong hopdong = new HopDong(this, phongtro.NCT, phongtro, phongtro.GiaPhong, ngaynhapphong, this.NGH);
         phongtro.HopDong = hopdong;
+        this.sophong = phongtro.SoPhong;
         if (nmg != null) //Cong tien cho Nguoi moi gioi (neu co)
         {
             nmg.NhanTien(600000);
@@ -110,5 +125,11 @@
                 }
             }
         }
+    }
+    
+    public List<string> KiemTra(PhongTro phongtro) //return danh sach bi hong
+    {
+        var hong = phongtro.HopDong.NoiThat.Except(phongtro.NoiThat).ToList();
+        return hong;
     }
 }

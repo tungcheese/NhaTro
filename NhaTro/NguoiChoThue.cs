@@ -1,7 +1,7 @@
 ﻿public class NguoiChoThue: Nguoi
 {
     //Thong tin ve phong tro
-    List<PhongTro> phongtro;
+    List<PhongTro> phongtro = new List<PhongTro>();
     //Tien chung
     public int tiendienchung = 0;
     public int tiennuocchung = 0;

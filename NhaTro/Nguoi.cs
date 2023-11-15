@@ -10,12 +10,36 @@
     int tien;
 
     //Get set
-    public string HoTen { get { return hoten; } }
-    public string NgheNghiepj { get { return nghenghiep; } }
-    public string CCCD { get { return cccd; } }
-    public bool GioiTinh { get { return gioitinh; } }
-    public DateTime NgaySinh { get { return ngaysinh; } }
-    public string QueQuan { get { return quequan; } }
+    public string HoTen 
+    { 
+        get { return hoten; }
+        set { hoten = value; }
+    }
+    public string NgheNghiep 
+    {
+        get { return nghenghiep; } 
+        set { nghenghiep = value; }
+    }
+    public string CCCD 
+    { 
+        get { return cccd; } 
+        set { cccd = value; }
+    }
+    public bool GioiTinh 
+    { 
+        get { return gioitinh; } 
+        set {  gioitinh = value; }
+    }
+    public DateTime NgaySinh 
+    {
+        get { return ngaysinh; } 
+        set { ngaysinh = value; }
+    }
+    public string QueQuan 
+    {
+        get { return quequan; }
+        set {  quequan = value; }
+    }
     public int Tien
     {
         get { return tien; }

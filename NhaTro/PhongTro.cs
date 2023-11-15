@@ -2,6 +2,11 @@
 {
     //Info
     int sophong;
+    public int SoPhong
+    {
+        get { return sophong; } 
+        set { sophong = value; }
+    }
     int songuoi = 0;
     public int SoNguoi
     { 
@@ -15,12 +20,13 @@
         get { return giaphong; } 
         set { giaphong = value; }
     }
-    List<string> noithat;
+    List<string> noithat = new List<string> { "ban", "ghe", "tu lanh", "nem", "tu do", "den", "quat"};
     public List<string> NoiThat
     {
         get { return noithat; }
         set { noithat = value; }
     }
+    List<string> noiquy = new List<string> { "Gio giac tu do", "Loi di rieng"};
     string yeucau;
     bool gioitinh;
     public bool GioiTinh
@@ -79,7 +85,7 @@
     }
 
     //Constructor
-    public PhongTro(NguoiChoThue nct, int sophong, string yeucau, bool gioitinh, List<string> noithat, int dientich = 20)
+    public PhongTro(NguoiChoThue nct, int sophong, string yeucau, bool gioitinh, int dientich = 20, List<string> noiquy = null)
     {
         this.sophong = sophong;
         this.nct = nct;
@@ -91,10 +97,15 @@
         int sonoithat = 0;
         foreach (string a in noithat) { sonoithat++; }
         this.giaphong = giaphong + (dientich - 20) * 100000 + sonoithat * 50000;
+
+        //Noi quy
+        if (noiquy != null)
+        {
+            this.noiquy.AddRange(noiquy);
+        }
         
         this.yeucau = yeucau;
         this.gioitinh = gioitinh;
-        this.noithat = noithat;
         this.dientich = dientich;
     }
 

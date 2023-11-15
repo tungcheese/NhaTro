@@ -5,7 +5,7 @@
     int masothue;
     string diachi;
     int tienhoahong;
-    List<NguoiMoiGioi> nmg;
+    List<NguoiMoiGioi> nmg = new List<NguoiMoiGioi>();
 
     //Get set
     public string Ten { get { return ten; } }

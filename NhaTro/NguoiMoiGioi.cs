@@ -5,7 +5,7 @@
 
     //Get set
     public CongTy CT 
-    { 
+    {
         get { return congty; } 
         set { congty = value; }
     }
