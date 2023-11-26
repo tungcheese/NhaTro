@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Runtime;
-using System.Runtime.CompilerServices;
-/// Tung Cheese
+﻿/// Tung Cheese
 static class CongCu
 {
     public static PhongTro? NguoiThuePT(NguoiThue nguoithue)
@@ -57,26 +54,86 @@ static class CongCu
         return false;
     }
 
-    public static string? Nhap(string? input = null)
+    public static string Nhap(string? input = null)
     {
         if (input != null) { Console.WriteLine(input); }
-        Console.Write("----> ");
-        return Console.ReadLine();
+        string? output = null;
+        while (output == null)
+        {
+            Console.Write("----> ");
+            output = Console.ReadLine();
+        }
+        return output;
     }
 
-    public static (string, string, DateTime, string) Menu_TaoNguoi ()
+    public static int NhapSo(string? input = null, int start = -1, int end = -1)
+    {
+        int b;
+        if (start == end)
+        {
+            while (true)
+            {
+                try
+                {
+                    string? a = Nhap(input);
+                    b = Int32.Parse(a);
+                    break;
+                }
+                catch
+                {
+                    Console.WriteLine("Vui long nhap lai");
+                }
+            }
+        }
+        else if (start == 0 && end == -1)
+        {
+            b = start - 1;
+            while(b < start)
+            {
+                try
+                {
+                    string? a = Nhap(input);
+                    b = Int32.Parse(a);
+                }
+                catch
+                {
+                    Console.WriteLine("Vui long nhap lai");
+                }
+            }
+        }
+        else
+        {
+            b = start - 1;
+            while (b < start || b > end)
+            {
+                try
+                {
+                    string? a = Nhap(input);
+                    b = Int32.Parse(a);
+                }
+                catch
+                {
+                    Console.WriteLine("Vui long nhap lai");
+                }
+            }
+        }
+        return b;
+    }
+
+    public static (string, string, DateTime, string, int) Menu_TaoNguoi ()
     {
         string? hoten = Nhap("Ten ban la: ");
         string? nghenghiep = Nhap("Nghe nghiep cua ban la: ");
-        DateTime ngaysinh = new DateTime(Int32.Parse(Nhap("Nam sinh: ")), Int32.Parse(Nhap("Thang sinh: ")), Int32.Parse(Nhap("Ngay sinh")));
+        DateTime ngaysinh = new DateTime(NhapSo("Nam sinh: "), NhapSo("Thang sinh: "), NhapSo("Ngay sinh"));
         string? quequan = Nhap("Que quan: ");
-        //int tuoi = (int)DateTime.Now.Subtract(ngaysinh).TotalDays / 365;
-        return (hoten, nghenghiep, ngaysinh, quequan);
+        int tuoi = (int)DateTime.Now.Subtract(ngaysinh).TotalDays / 365;
+        return (hoten, nghenghiep, ngaysinh, quequan, tuoi);
     }
 
+    ///Menu tao nguoi
     public static void Menu_TaoNguoiThue(string hoten, string nghenghiep, string cccd, DateTime ngaysinh, string quequan, int tuoi)
     {
-        int tien = Int32.Parse(Nhap("So tien: "));
+        int tien = NhapSo("So tien: ");
         NguoiGiamHo ngh = null;
         if (tuoi < 18)
         {
@@ -92,7 +149,7 @@ static class CongCu
                 {
                     ngh = new NguoiGiamHo(
                         Nhap("Ten nguoi giam ho: "), Nhap("Nghe nghiep: "), cccd_ngh,
-                        new DateTime(Int32.Parse(Nhap("Nam sinh: ")), Int32.Parse(Nhap("Thang sinh: ")), Int32.Parse(Nhap("Ngay sinh"))),
+                        new DateTime(NhapSo("Nam sinh: "), NhapSo("Thang sinh: "), NhapSo("Ngay sinh")),
                         Nhap("Que quan: "));
                 }
             }
@@ -105,140 +162,257 @@ static class CongCu
     }
     public static void Menu_TaoNguoiMoiGioi(string hoten, string nghenghiep, string cccd, DateTime ngaysinh, string quequan)
     {
-        CongTy ct = null;
+        CongTy? congty = null;
         if (Nhap("Ban co thuoc cong ty moi gioi nao khong?\n Co || Khong:") == "Co")
         {
-            int masothue = Int32.Parse(Nhap("Nhap ma so thue cong ty: "));
+            int masothue = NhapSo("Nhap ma so thue cong ty: ");
             if (LuuTru.congty.Exists(x => x.MaSoThue == masothue))
             {
-                ct = LuuTru.congty.Find(x => x.MaSoThue == masothue);
+                congty = LuuTru.congty.Find(x => x.MaSoThue == masothue);
             }
             else
             {
-                ct = new CongTy(Nhap("Ten cong ty: "), Nhap("Dia chi cong ty: "), masothue);
+                congty = new CongTy(Nhap("Ten cong ty: "), Nhap("Dia chi cong ty: "), masothue);
             }
         }
-        LuuTru.nguoimoigioi.Add(new NguoiMoiGioi(hoten, nghenghiep, cccd, ngaysinh, quequan));
+        LuuTru.nguoimoigioi.Add(new NguoiMoiGioi(hoten, nghenghiep, cccd, ngaysinh, quequan, congty));
     }
-    public static void NguoiThue_TimPhong_DienTich_NhapTro(List<PhongTro> dsphongtro, NguoiThue nguoithue)
+    
+    //Nguoi thue nhap tro
+    public static void NguoiThue_TimPhong_NhapTro(PhongTro phongTro, NguoiThue nguoithue)
     {
-        Console.WriteLine("Ban muon nhap phong tro nao: ?");
-        int count = 0;
-        foreach (PhongTro pt in dsphongtro)
+        string? yeucau = Nhap("Ban co yeu cau gi ve phong khong?:\nKhong co yeu cau thi hay bo trong");
+        string? nhaptro = Nhap("Ban co nhap tro chung voi ai khong?\nCo hoac khong: ");
+        List<NguoiThue>? dsnguoithue = null;
+        if (nhaptro == "Co")
         {
-            Console.WriteLine(++count);
-            pt.In();
-        }
-        Console.WriteLine("Ban muon nhap phong tro nao?");
-        int input = Int32.Parse(Nhap("Nhap so thu tu cua phong hoac 0 de Huy: "));
-        if (input != 0)
-        {
-            string? yeucau = Nhap("Ban co yeu cau gi ve phong khong?:\n Khong co yeu cau hay bo trong");
-            string? nhaptro = Nhap("Ban co nhap tro chung voi ai khong?\nCo hoac khong: ");
-            PhongTro phongTro = dsphongtro[input - 1];
-            List<NguoiThue>? dsnguoithue = null;
-            if (nhaptro == "Co")
+            bool check = true;
+            dsnguoithue = new List<NguoiThue>();
+            for (int i = 0; i < 3 && check; i++)
             {
-                bool check = true;
-                dsnguoithue = new List<NguoiThue>();
-                for (int i = 0; i < 3 && check; i++)
+                if (i != 0) { check = Nhap("Con nguoi khac khong?\nCo hoac Khong: ") == "Co"; }
+                if (check)
                 {
-                    if (i != 0) { check = Nhap("Con nguoi khac khong?\nCo hoac Khong: ") == "Co"; }
-                    if (check)
+                    string? cccd = Nhap("Nhap cccd nguoi thue: ");
+                    if (LuuTru.nguoithue.Exists(x => x.CCCD == cccd))
                     {
-                        string? cccd = Nhap("Nhap cccd nguoi thue: ");
-                        if (LuuTru.nguoithue.Exists(x => x.CCCD == cccd))
-                        {
-                            NguoiThue? nt = LuuTru.nguoithue.Find(x => x.CCCD.Contains(cccd));
-                            if (NguoiThue.KiemTraNhapPhong(nt, phongTro.GioiTinh)) { dsnguoithue.Add(nt); }
-                            else { check = false; }
-                        }
-                        else
-                        {
-                            var inputnguoi = Menu_TaoNguoi();
-                            Menu_TaoNguoiThue(inputnguoi.Item1, inputnguoi.Item2, cccd, inputnguoi.Item3, inputnguoi.Item4, (int)DateTime.Now.Subtract(inputnguoi.Item3).TotalDays / 365);
-                        }
+                        NguoiThue nt = LuuTru.nguoithue.Find(x => x.CCCD.Contains(cccd));
+                        if (NguoiThue.KiemTraNhapPhong(nt, phongTro.GioiTinh)) { dsnguoithue.Add(nt); }
+                        else { check = false; }
+                    }
+                    else
+                    {
+                        var inputnguoi = Menu_TaoNguoi();
+                        Menu_TaoNguoiThue(inputnguoi.Item1, inputnguoi.Item2, cccd, inputnguoi.Item3, inputnguoi.Item4, inputnguoi.Item5);
                     }
                 }
             }
-            Console.WriteLine(nguoithue.NhapTro(DateTime.Now, dsphongtro[input - 1], yeucau, dsnguoithue) ? "Nhap phong thanh cong" : "Khong du dieu kien nhap phong");
         }
+        Console.WriteLine(nguoithue.NhapTro(DateTime.Now, phongTro, yeucau, dsnguoithue) ? "Nhap phong thanh cong" : "Khong du dieu kien nhap phong");
     }
-    public static void NguoiThue_TimPhong_DienTich(NguoiThue nguoithue)
+
+    /// <summary>
+    /// Cac ham va chuc nang can thiet de nguoithue tim phong
+    /// </summary>
+    /// <returns></returns>
+    public static int? NguoiThue_TimPhong_DienTich()
     {
-        Console.WriteLine("Dien tich ban mong muon: ");
-        Console.WriteLine("1. 20m^2 \t2. 30m^2 \n3. 40m^2\t4. Thoat");
-        int dientich = Int32.Parse(Nhap());
+        Console.WriteLine("* 1. Dien tich: ");
+        string? dientich = Nhap("1. 20m^2 \t2. 30m^2 \n3. 40m^2\t4. 60m^2");
+        if (dientich?.Any() ?? false)
+        {
+            switch (Int32.Parse(dientich))
+            {
+                case 1:
+                    dientich = "20";
+                    break;
+                case 2:
+                    dientich = "30";
+                    break;
+                case 3:
+                    dientich = "40";
+                    break;
+                case 4:
+                    dientich = "60";
+                    break;
+            }
+        }
+        return (dientich?.Any() ?? false) ? Int32.Parse(dientich) : null;
+    }
+    public static int? NguoiThue_TimPhong_GiaPhong()
+    {
+        Console.WriteLine("* 2. Gia phong: ");
+        string? giaphong = Nhap("1. 2.850.000 \t2. 3.850.000 \n3. 4.850.000 \t4. 6.850.000");
+        if (giaphong?.Any() ?? false)
+        {
+            switch (Int32.Parse(giaphong))
+            {
+                case 1:
+                    giaphong = "2850000";
+                    break;
+                case 2:
+                    giaphong = "3850000";
+                    break;
+                case 3:
+                    giaphong = "4850000";
+                    break;
+                case 4:
+                    giaphong = "6850000";
+                    break;
+            }
+        }
+        return (giaphong?.Any() ?? false) ? Int32.Parse(giaphong) : null;
+    }
+    public static List<string>? NguoiThue_TimPhong_NoiThat()
+    {
+        Console.WriteLine("* 3. Noi that: ");
+        string? tempnoithat = Nhap("1. Tu lanh \t2. May lanh \n3. May giat \t4. Tu quan ao \n5. Gac xep \t6. Camera an ninh \n Nhap day so mong muon (vd tu lanh may giat <=> 13)");
+        List<string>? noithat = null;
+        List<int> explored = new List<int>();
+        if (tempnoithat?.Any() ?? false)
+        {
+            noithat = new List<string>();
+            foreach (char sub in tempnoithat)
+            {
+                int num = sub - '0';
+                if (!explored.Contains(num))
+                {
+                    switch (num)
+                    {
+                        case 1:
+                            noithat.Add("Tu lanh");
+                            break;
+                        case 2:
+                            noithat.Add("May lanh");
+                            break;
+                        case 3:
+                            noithat.Add("May giat");
+                            break;
+                        case 4:
+                            noithat.Add("Tu quan ao");
+                            break;
+                        case 5:
+                            noithat.Add("Gac xep");
+                            break;
+                        case 6:
+                            noithat.Add("Camera an ninh");
+                            break;
+                    }
+                    explored.Add(num);
+                }
+            }
+        }
+        return (noithat?.Any() ?? false) ? noithat : null;
+    }
+    public static List<string>? NguoiThue_TimPhong_NoiQuy()
+    {
+        Console.WriteLine("* 4. Noi quy: ");
+        string? tempnoiquy = Nhap("1. Nuoi thu cung \t2. Cho tham nha \n3. Thu don rac hang tuan \t4. Khong on ao \n Nhap day so mong muon (vd tu lanh may giat <=> 13)");
+        List<string>? noiquy = null;
+        List<int> explored = new List<int>();
+        if (tempnoiquy?.Any() ?? false)
+        {
+            noiquy = new List<string>();
+            foreach (char sub in tempnoiquy)
+            {
+                int num = sub - '0';
+                if (!explored.Contains(num))
+                {
+                    switch (num)
+                    {
+                        case 1:
+                            noiquy.Add("Nuoi thu cung");
+                            break;
+                        case 2:
+                            noiquy.Add("Cho tham nha");
+                            break;
+                        case 3:
+                            noiquy.Add("Thu don rac hang tuan");
+                            break;
+                        case 4:
+                            noiquy.Add("Khong on ao");
+                            break;
+                    }
+                    explored.Add(num);
+                }
+            }
+        }
+        return (noiquy?.Any() ?? false) ? noiquy : null;
+    }
+    public static bool? NguoiThue_TimPhong_GioiTinh()
+    {
+        Console.WriteLine("* 5. Gioi tinh: ");
+        string? gioitinh = Nhap("1. Nam \t2. Nu");
+        return (gioitinh?.Any() ?? false) ? (gioitinh == "1") : null;
+    }
+    public static List<PhongTro> NguoiThue_TimPhong_PhongTro(int? dientich, int? giaphong, List<string>? noithat, List<string>? noiquy, bool? gioitinh)
+    {
         List<PhongTro> dsphongtro = new List<PhongTro>();
-        switch (dientich)
+        List<PhongTro> output = LuuTru.a;
+        if (dientich != null)
         {
-            case 1:
-                foreach (PhongTro pt in LuuTru.a)
-                {
-                    if (pt.DienTich == 20)
-                    {
-                        dsphongtro.Add(pt);
-                    }
-                }
-                break;
-            case 2:
-                foreach (PhongTro pt in LuuTru.a)
-                {
-                    if (pt.DienTich == 30)
-                    {
-                        dsphongtro.Add(pt);
-                    }
-                }
-                break;
-            case 3:
-                foreach (PhongTro pt in LuuTru.a)
-                {
-                    if (pt.DienTich == 40)
-                    {
-                        dsphongtro.Add(pt);
-                    }
-                }
-                break;
-            default:
-                break;
+            output = output.Where(p => p.DienTich == dientich).ToList();
         }
-        if (dsphongtro != null)
+        if (giaphong != null)
         {
-            NguoiThue_TimPhong_DienTich_NhapTro(dsphongtro, nguoithue);
+            output = output.Where(p => p.GiaPhong == giaphong).ToList();
         }
+        if (noithat != null) 
+        {
+            output = output.Where(p => noithat.Intersect(p.NoiThat).Count() == noithat.Count).ToList();
+        }
+        if (noiquy != null)
+        {
+            output = output.Where(p => noiquy.Intersect(p.NoiQuy).Count() == noiquy.Count).ToList();
+        }
+        if (gioitinh != null)
+        {
+            output = output.Where(p => p.GioiTinh == gioitinh).ToList();
+        }
+        return output;
     }
     public static void NguoiThue_TimPhong(NguoiThue nguoithue)
     {
         Console.WriteLine("Nhap tieu chi tim phong cua ban:\nBo trong neu khong can: ");
-        Console.WriteLine("1. Dien tich: ");
-        string? dientich = Nhap("1. 20m^2 \t2. 30m^2 \n3. 40m^2\t4. 60m^2");
-        Console.WriteLine("2. Gia phong: ");
-        string? giaphong = Nhap("1. 2.850.000 \t2. 3.850.000 \n3. 4.850.000 \t4. 6.850.000");
-        Console.WriteLine("3. Noi that: ");
-        string? noithat = Nhap("1. Tu lanh \t2. May lanh \n3. May giat \t4. Tu quan ao \n5. Wifi \t6. Camera an ninh \n Nhap day so mong muon (vd tu lanh may giat <=> 13)");
-        Console.WriteLine("4. Noi quy: ");
-        string? noiquy = Nhap("1. 20m^2 \t2. 30m^2 \n3. 40m^2\t4. 60m^2");
-        Console.WriteLine("5. Gioi tinh: ");
-        string? gioitinh = Nhap("1. Nam \t2. Nu");
-        switch(Int32.Parse(Nhap()))
+        int? dientich = NguoiThue_TimPhong_DienTich();
+        int? giaphong = NguoiThue_TimPhong_GiaPhong();
+        List<string>? noithat = NguoiThue_TimPhong_NoiThat();
+        List<string>? noiquy = NguoiThue_TimPhong_NoiQuy();
+        bool? gioitinh = NguoiThue_TimPhong_GioiTinh();
+        List<PhongTro> dsphongtro = NguoiThue_TimPhong_PhongTro(dientich, giaphong, noithat, noiquy, gioitinh);
+        if (dsphongtro.Any())
         {
-            case 1:
-                NguoiThue_TimPhong_DienTich(nguoithue);
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
-            default:
-                break;
+            int count = 0;
+            Console.WriteLine("Danh sach phong tro:");
+            foreach (PhongTro pt in dsphongtro)
+            {
+                Console.WriteLine("--*< {0} >*--", ++count);
+                pt.In();
+                Console.WriteLine("-----------");
+            }
+            int index = NhapSo("Ban muon nhap tro phong nao? \nNhap so thu tu de chon \nHoac nhap 0 de huy:", 0, count);
+            if (index == 0)
+            {
+                Console.WriteLine("Huy tim phong");
+                return;
+            }
+            if (dsphongtro[index - 1].GioiTinh == nguoithue.GioiTinh)
+                NguoiThue_TimPhong_NhapTro(dsphongtro[index - 1], nguoithue);
+            else
+            {
+                Console.WriteLine("***! Gioi tinh khong phu hop");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Khong co phong tro thoa");
         }
     }
+
+    /// <summary>
+    /// Program cho nguoithue, nguoichothue va nguoimoigioi quan ly cac muc tieu
+    /// </summary>
+    /// <param name="nguoithue"></param>
     public static void Program_NguoiThue(NguoiThue nguoithue)
     {
         bool check = true;
@@ -246,8 +420,8 @@ static class CongCu
         {
             Console.WriteLine("Ban muon lam gi?: ");
             Console.WriteLine("1. Tim phong: \n2. Quan ly phong: ");
-            Console.WriteLine("3. In thong tin: \n4. Thoat: ");
-            switch (Int32.Parse(Nhap()))
+            Console.WriteLine("3. In thong tin: \n4. Nap tien: \n5. Thoat");
+            switch (NhapSo())
             {
                 case 1:
                     NguoiThue_TimPhong(nguoithue);
@@ -266,6 +440,10 @@ static class CongCu
                     nguoithue.In();
                     continue;
                 case 4:
+                    nguoithue.NapTien(NhapSo("Nhap so tien can nap: ", 0));
+                    Console.WriteLine("Nap tien thanh cong!");
+                    continue;
+                case 5:
                     check = false;
                     break;
                 default:

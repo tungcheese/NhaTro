@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Xml.Serialization;
-using CsvHelper.Configuration.Attributes;
-public class NguoiThue: Nguoi
+﻿public class NguoiThue: Nguoi
 {
     //Unique information
     int sophong = 0;
@@ -51,7 +48,7 @@ public class NguoiThue: Nguoi
         return !(nguoithue == null || nguoithue.GioiTinh != gioitinh);
     }
 
-    public bool NhapTro(DateTime ngaynhapphong, PhongTro phongtro, string yeucau = "", List<NguoiThue>? nguoithue = null, NguoiMoiGioi? nmg = null)
+    public bool NhapTro(DateTime ngaynhapphong, PhongTro phongtro, string? yeucau = "", List<NguoiThue>? nguoithue = null, NguoiMoiGioi? nmg = null)
     {
         //Kiem tra dieu kien nhap tro
         if (!phongtro.Trong()) { return false; }
@@ -83,7 +80,8 @@ public class NguoiThue: Nguoi
         //Khoi tao hopdong
         HopDong hopdong = new HopDong(dsnguoithue, phongtro, phongtro.GiaPhong, ngaynhapphong);
         phongtro.HopDong = hopdong;
-        phongtro.YeuCau = yeucau;
+        if (yeucau != null) phongtro.YeuCau = yeucau;
+        else phongtro.YeuCau = "";
         this.sophong = phongtro.SoPhong;
 
         //Tinh so nguoi trong phong

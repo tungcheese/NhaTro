@@ -16,7 +16,7 @@ class Program
         //    new List<NguoiThue> { nguoithue[8] }, nguoimoigioi[2]);
         //nguoithue[9].NhapTro(DateTime.Now, a[3], "", null, nguoimoigioi[0]);
         //nguoithue[2].NhapTro(DateTime.Now, a[6]);
-
+        a.AddRange(b);
         Console.WriteLine("Giao dien quan ly nha tro");
         while (true)
         {            
@@ -54,9 +54,9 @@ class Program
                         string nghenghiep = input.Item2;
                         DateTime ngaysinh = input.Item3;
                         string quequan = input.Item4;
-                        int tuoi = (int)DateTime.Now.Subtract(ngaysinh).TotalDays / 365;
+                        int tuoi = input.Item5;
                         Console.WriteLine("Ban la:\n1. Nguoi thue:\n2. Nguoi cho thue:\n3. Nguoi moi gioi:");
-                        switch (Int32.Parse(Nhap()))
+                        switch (NhapSo())
                         {
                             case 1:
                                 Menu_TaoNguoiThue(hoten, nghenghiep, cccd, ngaysinh, quequan, tuoi);
@@ -75,7 +75,6 @@ class Program
             }
         }
 
-        a.AddRange(b);
         foreach(PhongTro pt in a)
         {
             pt.DienNuoc();

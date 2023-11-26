@@ -19,20 +19,20 @@ static class LuuTru
         nguoichothue.Add(new NguoiChoThue("Pham Trung M", "Buon ban", "012051046107", new DateTime(1897, 9, 15), "Dong Nai"));
 
         //Phong tro
-        a.Add(new PhongTro(nguoichothue[0], 101, "", true, 20, new List<string> { "Camera an ninh" }));
+        a.Add(new PhongTro(nguoichothue[0], 101, "", true, 20, new List<string> { "Camera an ninh", "Gac xep" }));
         a.Add(new PhongTro(nguoichothue[0], 102, "", true, 30, new List<string> { "May lanh", "Tu lanh" }));
         a.Add(new PhongTro(nguoichothue[0], 103, "", false, 30, new List<string> { "May lanh", "Tu lanh" }));
         a.Add(new PhongTro(nguoichothue[0], 104, "", false, 20, new List<string> { "Camera an ninh" }));
         a.Add(new PhongTro(nguoichothue[0], 105, "", true, 20, new List<string> { "Tu lanh" }));
         a.Add(new PhongTro(nguoichothue[0], 106, "", true, 30, new List<string> { "May lanh", "Tu lanh" }));
         a.Add(new PhongTro(nguoichothue[0], 107, "", false, 20, null, new List<string> { "Gac xep" }));
-        a.Add(new PhongTro(nguoichothue[0], 108, "", false, 60, new List<string> { "May lanh", "Tu lanh", "May giat", "Tu quan ao", "Camera an ninh" }, new List<string> { "Nuoi thu cung", "Gac xep" }));
+        a.Add(new PhongTro(nguoichothue[0], 108, "", false, 60, new List<string> { "May lanh", "Tu lanh", "May giat", "Tu quan ao", "Camera an ninh" }, new List<string> { "Nuoi thu cung" }));
 
         b.Add(new PhongTro(nguoichothue[1], 1101, "", false));
-        b.Add(new PhongTro(nguoichothue[1], 1102, "", false, 20, new List<string> { "Nuoi thu cung" }));
-        b.Add(new PhongTro(nguoichothue[1], 1103, "", true, 30, new List<string> { "Nuoi thu cung" }));
-        b.Add(new PhongTro(nguoichothue[1], 1104, "", true, 40, new List<string> { "Nuoi thu cung" }));
-        b.Add(new PhongTro(nguoichothue[1], 1105, "", false, 20, new List<string> { "Nuoi thu cung" }));
+        b.Add(new PhongTro(nguoichothue[1], 1102, "", false, 20, null, new List<string> { "Nuoi thu cung" }));
+        b.Add(new PhongTro(nguoichothue[1], 1103, "", true, 30, null , new List<string> { "Nuoi thu cung" }));
+        b.Add(new PhongTro(nguoichothue[1], 1104, "", true, 40, null, new List<string> { "Nuoi thu cung" }));
+        b.Add(new PhongTro(nguoichothue[1], 1105, "", false, 20, null, new List<string> { "Nuoi thu cung" }));
         b.Add(new PhongTro(nguoichothue[1], 1106, "", false, 40));
         b.Add(new PhongTro(nguoichothue[1], 1107, "", true));
 

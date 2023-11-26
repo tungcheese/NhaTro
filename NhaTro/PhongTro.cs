@@ -1,5 +1,4 @@
-﻿using CsvHelper.Configuration.Attributes;
-﻿public class PhongTro
+﻿﻿public class PhongTro
 {
     //Info
     int sophong;
@@ -33,8 +32,8 @@
         get { return noithat; }
         set { noithat = value; }
     }
-    List<string>? noiquy = new List<string> { "Gio giac tu do", "Loi di rieng" };
-    public List<string>? NoiQuy
+    List<string> noiquy = new List<string> { "Gio giac tu do", "Loi di rieng" };
+    public List<string> NoiQuy
     {
         get { return noiquy; }
         set { noiquy = value; }
@@ -124,13 +123,14 @@
     public void In()
     {
         Console.WriteLine("So phong: {0}", sophong);
+        Console.WriteLine("Nguoi cho thue: {0}", NguoiChoThue.HoTen);
         Console.WriteLine("Phong cho: {0}", (gioitinh) ? "nam" : "nu");
         Console.WriteLine("So nguoi: {0}", songuoi);
         Console.WriteLine("Dien tich: {0}", dientich);
         Console.WriteLine("Gia phong: {0}", giaphong);
         Console.Write("Noi that: ");
         foreach (string a in noithat) { Console.Write(a + ", "); }
-        Console.WriteLine("Yeu cau rieng: {0}", yeucau);
+        Console.WriteLine("\nYeu cau rieng: {0}", yeucau);
     }
 
     public void DienNuoc()
