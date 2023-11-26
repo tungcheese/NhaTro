@@ -8,9 +8,21 @@
     List<NguoiMoiGioi> nmg = new List<NguoiMoiGioi>();
 
     //Get set
-    public string Ten { get { return ten; } }
-    public int MaSoThue { get { return masothue; } }
-    public string DiaChi { get { return diachi; } }
+    public string Ten 
+    { 
+        get { return ten; } 
+        set { ten = value; }
+    }
+    public int MaSoThue 
+    { 
+        get { return masothue; } 
+        set {  masothue = value; }
+    }
+    public string DiaChi 
+    { 
+        get { return diachi; } 
+        set {  diachi = value; }
+    }
     public int TienHoaHong 
     { 
         get { return tienhoahong; } 
@@ -23,8 +35,9 @@
     }
 
     //Constructor
-    public CongTy(string diachi, int masothue)
+    public CongTy(string ten, string diachi, int masothue)
     {
+        this.ten = ten;
         this.diachi = diachi;
         this.masothue = masothue;
     }
@@ -35,6 +48,7 @@
         Console.WriteLine("Ma so thue: {0}", masothue);
         Console.WriteLine("Dia chi: {0}", diachi);
         Console.WriteLine("Tien hoa hong: {0}", tienhoahong);
+        Console.WriteLine("---------------------------");
     }
 
     public void InNhanVien()

@@ -1,19 +1,20 @@
 ﻿public class NguoiMoiGioi: Nguoi
 {
     //Unique information
-    CongTy congty;
+    CongTy? congty;
 
     //Get set
-    public CongTy CT 
+    public CongTy? CT
     {
-        get { return congty; } 
+        get { return congty; }
         set { congty = value; }
     }
 
     //Constructor
-    public NguoiMoiGioi(string hoten, string nghenghiep, string cccd, DateTime ngaysinh, string quequan, CongTy congty = null) 
+    public NguoiMoiGioi(string hoten, string nghenghiep, string cccd, DateTime ngaysinh, string quequan, CongTy? congty = null) 
         : base(hoten, nghenghiep, cccd, ngaysinh, quequan)
     {
+        this.NgheNghiep = "Nguoi moi gioi";
         this.congty = congty;
         if (congty != null)
         {
@@ -24,12 +25,13 @@
     public override void In()
     {
         base.In();
-        Console.WriteLine("Lam viec tai cong ty: {0}", congty.Ten);
+        if (congty != null) { Console.WriteLine("Lam viec tai cong ty: {0}", congty.Ten); }
+        Console.WriteLine("---------------------------");
     }
 
     public void NhanTien(int sotiennhan)
     {
-        if (this.CT != null)
+        if (this.CT == null)
         {
             this.Tien += sotiennhan / 10;
         }

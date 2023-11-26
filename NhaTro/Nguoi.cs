@@ -10,35 +10,35 @@
     int tien;
 
     //Get set
-    public string HoTen 
-    { 
+    public string HoTen
+    {
         get { return hoten; }
         set { hoten = value; }
     }
-    public string NgheNghiep 
+    public string NgheNghiep
     {
-        get { return nghenghiep; } 
+        get { return nghenghiep; }
         set { nghenghiep = value; }
     }
-    public string CCCD 
-    { 
-        get { return cccd; } 
+    public string CCCD
+    {
+        get { return cccd; }
         set { cccd = value; }
     }
-    public bool GioiTinh 
-    { 
-        get { return gioitinh; } 
-        set {  gioitinh = value; }
-    }
-    public DateTime NgaySinh 
+    public bool GioiTinh
     {
-        get { return ngaysinh; } 
+        get { return gioitinh; }
+        set { gioitinh = value; }
+    }
+    public DateTime NgaySinh
+    {
+        get { return ngaysinh; }
         set { ngaysinh = value; }
     }
-    public string QueQuan 
+    public string QueQuan
     {
         get { return quequan; }
-        set {  quequan = value; }
+        set { quequan = value; }
     }
     public int Tien
     {
@@ -67,9 +67,14 @@
         Console.WriteLine("Ho va ten: {0}", hoten);
         Console.WriteLine("Nghe nghiep: {0}", nghenghiep);
         Console.WriteLine("Can cuoc cong dan: {0}", cccd);
-        Console.WriteLine("Gioi tinh: {0}", gioitinh);
+        Console.WriteLine("Gioi tinh: {0}", gioitinh ? "Nam" : "Nu");
         Console.WriteLine("Ngay sinh: {0}", ngaysinh.ToString("d"));
         Console.WriteLine("Que quan: {0}", quequan);
         Console.WriteLine("Tien hien co: {0}", tien);
+    }
+
+    public void NapTien(int sotien)
+    {
+        this.tien += sotien;
     }
 }

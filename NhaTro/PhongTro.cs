@@ -1,10 +1,11 @@
-﻿﻿public class PhongTro
+﻿using CsvHelper.Configuration.Attributes;
+﻿public class PhongTro
 {
     //Info
     int sophong;
     public int SoPhong
     {
-        get { return sophong; } 
+        get { return sophong; }
         set { sophong = value; }
     }
     int songuoi = 0;
@@ -14,20 +15,36 @@
         set { songuoi = value; }
     }
     int dientich;
+    public int DienTich
+    {
+        get { return dientich; }
+        set { dientich = value; }
+    }
     int giaphong = 2500000;
     public int GiaPhong
     { 
-        get { return giaphong; } 
+        get { return giaphong; }
         set { giaphong = value; }
     }
-    List<string> noithat = new List<string> { "ban", "ghe", "tu lanh", "nem", "tu do", "den", "quat"};
+    List<string> noithat = new List<string> { "Giuong", "Quat", "Tu do", "Den", "Rem", "Wifi" };
+    //"ban", "ghe", "tu lanh", "nem", "tu do", "den", "quat"
     public List<string> NoiThat
     {
         get { return noithat; }
         set { noithat = value; }
     }
-    List<string> noiquy = new List<string> { "Gio giac tu do", "Loi di rieng"};
+    List<string>? noiquy = new List<string> { "Gio giac tu do", "Loi di rieng" };
+    public List<string>? NoiQuy
+    {
+        get { return noiquy; }
+        set { noiquy = value; }
+    }
     string yeucau;
+    public string YeuCau
+    {
+        get { return yeucau;}
+        set { yeucau = value; }
+    }
     bool gioitinh;
     public bool GioiTinh
     { 
@@ -36,30 +53,22 @@
     }
 
     //HopDong
-    HopDong hopdong; 
-    public HopDong HopDong 
+    HopDong? hopdong; 
+    public HopDong? HopDong 
     { 
         get { return hopdong; }
         set { hopdong = value; }
     }
-
     //Nguoi
-    NguoiChoThue nct;
-    public NguoiChoThue NCT 
+    NguoiChoThue nguoichothue;
+    public NguoiChoThue NguoiChoThue 
     { 
-        get { return nct; } 
-        set { nct = value; }
-    }
-    List<NguoiThue> nt;
-    public List<NguoiThue> NT
-    { 
-        get { return nt; }
-        set { nt = value; }
+        get { return nguoichothue; } 
+        set { nguoichothue = value; }
     }
 
     //Tien
     int tiendien;
-
     public int TienDien
     {
         get { return tiendien; }
@@ -85,17 +94,21 @@
     }
 
     //Constructor
-    public PhongTro(NguoiChoThue nct, int sophong, string yeucau, bool gioitinh, int dientich = 20, List<string> noiquy = null)
+    public PhongTro(NguoiChoThue nguoichothue, int sophong, string yeucau, bool gioitinh, int dientich = 20, List<string>? noithat = null, List<string>? noiquy = null)
     {
         this.sophong = sophong;
-        this.nct = nct;
+        this.nguoichothue = nguoichothue;
 
         //Luu phong tro
-        nct.PhongTro.Add(this);
+        nguoichothue.PhongTro.Add(this);
 
         //Tinh tien noi that
         int sonoithat = 0;
-        foreach (string a in noithat) { sonoithat++; }
+        if (noithat != null)
+        {
+            this.noithat.AddRange(noithat);
+            foreach (string a in noithat) { sonoithat++; }
+        }
         this.giaphong = giaphong + (dientich - 20) * 100000 + sonoithat * 50000;
 
         //Noi quy
@@ -103,7 +116,6 @@
         {
             this.noiquy.AddRange(noiquy);
         }
-        
         this.yeucau = yeucau;
         this.gioitinh = gioitinh;
         this.dientich = dientich;
@@ -127,6 +139,7 @@
         Random rnd = new Random();
         this.tiendien = (50000 + rnd.Next(-10, 10)) * songuoi;
         this.tiennuoc = 17750 * songuoi;
+        this.tienwifi = 40 * songuoi;
     }
 
     public bool Trong()

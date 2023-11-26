@@ -2,39 +2,21 @@
 {
     //Nguoi
     List<string> noithat;
-    NguoiThue nt;
-    NguoiChoThue nct;
-    NguoiGiamHo ngh;
     public List<string> NoiThat
     {
         get { return noithat; }
         set { noithat = value; }
     }
-    public NguoiThue NT 
+    List<NguoiThue> nguoithue;
+    public List<NguoiThue> NguoiThue
     { 
-        get { return nt; } 
-        set {  nt = value; }
-    }
-    public NguoiChoThue NCT 
-    {
-        get { return nct; }
-        set {  nct = value; }
-    }
-    public NguoiGiamHo NGH 
-    { 
-        get { return ngh; } 
-        set {  ngh = value; }
+        get { return nguoithue; } 
+        set { nguoithue = value; }
     }
 
     //Info
-    PhongTro phongtro;
     int tiendatcoc = 6000000;
     int tienthue;
-    public PhongTro PhongTro 
-    { 
-        get { return phongtro; } 
-        set { phongtro = value; }
-    }
     public int TienDatCoc 
     { 
         get { return tiendatcoc; } 
@@ -61,11 +43,9 @@
     }
 
     //Constructor
-    public HopDong(NguoiThue nt, NguoiChoThue nct, PhongTro phongtro, int tienthue, DateTime batdau, NguoiGiamHo ngh = null)
+    public HopDong(List<NguoiThue> nguoithue, PhongTro phongtro, int tienthue, DateTime batdau)
     {
-        this.nt = nt;
-        this.nct = nct;
-        this.phongtro = phongtro;
+        this.nguoithue = nguoithue;
         this.tienthue = tienthue;
         this.noithat = phongtro.NoiThat;
 
@@ -74,14 +54,15 @@
         this.hethan = batdau.AddMonths(6);
 
         //tinh tien
-        if (ngh == null)
+        if (nguoithue[0].NguoiGiamHo == null)
         {
-            CongCu.TruTien(nt, nct, tiendatcoc + tienthue);
+            CongCu.TruTien(nguoithue[0], phongtro.NguoiChoThue, tiendatcoc + tienthue);
         }
         else
         {
-            CongCu.TruTien(ngh, nct, tiendatcoc + tienthue);
+            CongCu.TruTien(nguoithue[0].NguoiGiamHo, phongtro.NguoiChoThue, tiendatcoc + tienthue);
         }
+        LuuTru.hopdong.Add(this);
     }
 
     public bool GiaHan()

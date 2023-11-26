@@ -4,4 +4,10 @@
     : base(hoten, nghenghiep, cccd, ngaysinh, quequan, tien)
     {
     }
+
+    public override void In()
+    {
+        base.In();
+        Console.WriteLine("---------------------------");
+    }
 }
