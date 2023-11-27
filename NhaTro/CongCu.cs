@@ -1,4 +1,5 @@
-﻿/// Tung Cheese
+﻿using System.Runtime;
+/// Tung Cheese
 static class CongCu
 {
     public static PhongTro? NguoiThuePT(NguoiThue nguoithue)
@@ -92,6 +93,7 @@ static class CongCu
             {
                 try
                 {
+                    Console.Write("[{0}, {1}]\t", start, end);
                     string? a = Nhap(input);
                     b = Int32.Parse(a);
                 }
@@ -409,6 +411,38 @@ static class CongCu
         }
     }
 
+    public static void NguoiThue_QuanLy(NguoiThue nguoithue)
+    {
+        bool check = true;
+        while (check)
+        {
+            Console.WriteLine("So phong cua ban la: {0}", nguoithue.SoPhong);
+            Console.WriteLine("Ban muon lam gi?: ");
+            int input = NhapSo("1. In phong: \t\t2. Gia han: \n3. Thanh toan tien: \t4. Yeu cau: \n5. Lam hong (dev): \t0. Thoat: ", 0, 5);
+            switch (input)
+            {
+                case 1:
+                    nguoithue.InPhong();
+                    break;
+                case 2: //chua co tinh tien gia han
+                    nguoithue.GiaHan();
+                    break;
+                case 3:
+                    nguoithue.ThanhToan();
+                    break;
+                case 4:
+                    nguoithue.YeuCau(Nhap("Nhap yeu cau cua ban: "));
+                    break;
+                case 5:
+                    nguoithue.LamHong();
+                    break;
+                case 0:
+                    check = false;
+                    break;
+            }
+        }
+    }
+
     /// <summary>
     /// Program cho nguoithue, nguoichothue va nguoimoigioi quan ly cac muc tieu
     /// </summary>
@@ -419,22 +453,17 @@ static class CongCu
         while (check)
         {
             Console.WriteLine("Ban muon lam gi?: ");
-            Console.WriteLine("1. Tim phong: \n2. Quan ly phong: ");
-            Console.WriteLine("3. In thong tin: \n4. Nap tien: \n5. Thoat");
-            switch (NhapSo())
+            Console.WriteLine("1. Tim phong: \t\t2. Quan ly phong: ");
+            Console.WriteLine("3. In thong tin: \t4. Nap tien: ");
+            switch (NhapSo("0. Thoat: ", 0, 4))
             {
                 case 1:
-                    NguoiThue_TimPhong(nguoithue);
+                    if (NguoiThuePT(nguoithue) == null) NguoiThue_TimPhong(nguoithue);
+                    else Console.WriteLine("Ban da so huu mot phong tro roi");
                     break;
                 case 2:
-                    if (NguoiThuePT(nguoithue) != null)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Ban chua co phong tro nao!");
-                    }    
+                    if (NguoiThuePT(nguoithue) != null) NguoiThue_QuanLy(nguoithue);
+                    else Console.WriteLine("Ban chua co phong tro nao!");   
                     break;
                 case 3:
                     nguoithue.In();
@@ -443,10 +472,8 @@ static class CongCu
                     nguoithue.NapTien(NhapSo("Nhap so tien can nap: ", 0));
                     Console.WriteLine("Nap tien thanh cong!");
                     continue;
-                case 5:
+                case 0:
                     check = false;
-                    break;
-                default:
                     break;
             }
         }

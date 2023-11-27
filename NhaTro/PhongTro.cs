@@ -52,7 +52,7 @@
     }
 
     //HopDong
-    HopDong? hopdong; 
+    HopDong? hopdong = null; 
     public HopDong? HopDong 
     { 
         get { return hopdong; }
@@ -122,15 +122,17 @@
 
     public void In()
     {
-        Console.WriteLine("So phong: {0}", sophong);
-        Console.WriteLine("Nguoi cho thue: {0}", NguoiChoThue.HoTen);
-        Console.WriteLine("Phong cho: {0}", (gioitinh) ? "nam" : "nu");
-        Console.WriteLine("So nguoi: {0}", songuoi);
-        Console.WriteLine("Dien tich: {0}", dientich);
-        Console.WriteLine("Gia phong: {0}", giaphong);
-        Console.Write("Noi that: ");
+        Console.WriteLine("|So phong: {0}", sophong);
+        Console.WriteLine("|Nguoi cho thue: {0}", NguoiChoThue.HoTen);
+        Console.WriteLine("|Phong cho: {0}", (gioitinh) ? "Nam" : "Nu");
+        Console.WriteLine("|So nguoi: {0}", songuoi);
+        if (hopdong != null) hopdong.In();
+        Console.WriteLine("|Dien tich: {0}", dientich);
+        Console.WriteLine("|Gia phong: {0}", giaphong);
+        Console.Write("|Noi that: ");
         foreach (string a in noithat) { Console.Write(a + ", "); }
-        Console.WriteLine("\nYeu cau rieng: {0}", yeucau);
+        Console.WriteLine("\n|Yeu cau rieng: {0}", yeucau);
+        Console.WriteLine("---------------------------");
     }
 
     public void DienNuoc()

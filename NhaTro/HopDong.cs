@@ -67,7 +67,15 @@
 
     public bool GiaHan()
     {
-        hethan.AddMonths(6);
+        hethan = HetHan.AddMonths(6);
+        Console.WriteLine("Gia han den {0} thanh cong!", hethan.ToString("d"));
         return true;
+    }
+
+    public void In()
+    {
+        Console.WriteLine("|Nguoi thue: {0}", string.Join(";", nguoithue.Select(x=>x.HoTen)));
+        Console.WriteLine("|Ngay bat dau: {0}", BatDau.ToString("d"));
+        Console.WriteLine("|Ngay het han: {0}", HetHan.ToString("d"));
     }
 }

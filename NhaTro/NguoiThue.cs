@@ -30,6 +30,15 @@
         Console.WriteLine("---------------------------");
     }
 
+    public void InPhong()
+    {
+        PhongTro? phongtro = CongCu.NguoiThuePT(this);
+        if (phongtro != null)
+        {
+            phongtro.In();
+        }
+    }
+
     public override void HuyPhong(DateTime ngaytra, PhongTro phongtro)
     {
         int songaytra = DateTime.Compare(ngaytra, phongtro.HopDong.HetHan);
@@ -102,19 +111,35 @@
         return phongtro.HopDong.GiaHan();
     }
 
-    public bool ThanhToan()
+    public void ThanhToan()
     {
         PhongTro? phongtro = CongCu.NguoiThuePT(this);
         if (phongtro != null)
         {
-            int tientong = phongtro.TienDien + phongtro.TienNuoc + phongtro.TienRac + phongtro.TienWifi;
-            if (this.Tien >= tientong)
+            int tientong = 0 + phongtro.TienDien + phongtro.TienNuoc + phongtro.TienRac + phongtro.TienWifi;
+            if (tientong != 0)
             {
-                CongCu.TruTien(this, phongtro.NguoiChoThue, tientong);                
-                return true;
+                Console.WriteLine("So tien can thanh toan: {0}", tientong);
+                Console.WriteLine("- Tien dien:\t{0}", phongtro.TienDien);
+                Console.WriteLine("- Tien nuoc:\t{0}", phongtro.TienNuoc);
+                Console.WriteLine("- Tien rac:\t{0}", phongtro.TienRac);
+                Console.WriteLine("- Tien wifi:\t{0}", phongtro.TienWifi);
             }
+            else
+            {
+                Console.WriteLine("Khong co gi de thanh toan!");
+                return;
+            }
+            int input = CongCu.NhapSo("Ban co muon thanh toan khong?\n1. Co\t2.Khong", 1, 2);
+            if (this.Tien >= tientong)
+                if (input == 1)
+                {
+                    CongCu.TruTien(this, phongtro.NguoiChoThue, tientong);
+                    Console.WriteLine("Thanh toan thanh cong!");
+                }
+                else Console.WriteLine("Da huy thanh toan");
+            else Console.WriteLine("Ban khong du tien de thanh toan");
         }
-        return false;
     }
 
     public void YeuCau(string yeucau)
@@ -124,6 +149,7 @@
         {
             phongtro.YeuCau = yeucau;
         }
+        Console.WriteLine("Da gui yeu cau thanh cong!");
     }
 
     public void LamHong()

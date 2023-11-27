@@ -17,6 +17,13 @@ class Program
         //nguoithue[9].NhapTro(DateTime.Now, a[3], "", null, nguoimoigioi[0]);
         //nguoithue[2].NhapTro(DateTime.Now, a[6]);
         a.AddRange(b);
+        nguoithue[0].NhapTro(DateTime.Now, a[3]);
+
+        foreach (PhongTro pt in a)
+        {
+            if (pt.HopDong != null) pt.DienNuoc();
+        }
+
         Console.WriteLine("Giao dien quan ly nha tro");
         while (true)
         {            
@@ -75,10 +82,6 @@ class Program
             }
         }
 
-        foreach(PhongTro pt in a)
-        {
-            pt.DienNuoc();
-        }
         Menu_GhiFile();
     }
 }
