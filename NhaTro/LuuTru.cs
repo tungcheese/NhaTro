@@ -37,23 +37,25 @@ static class LuuTru
         b.Add(new PhongTro(nguoichothue[1], 1107, "", true));
 
         //Nguoi giam ho
-        nguoigiamho.Add(new NguoiGiamHo("Le Thi T", "Giao vien", "018383000622", new DateTime(1987, 08, 15), "Can Tho", 10000000));
+        nguoigiamho.Add(new NguoiGiamHo("Le Thi T", "Giao vien", "018383000622", new DateTime(1987, 08, 15), "Can Tho", 100000000));
         nguoigiamho.Add(new NguoiGiamHo("Nguyen Bao A", "Ky su", "070396064958", new DateTime(1975, 06, 07), "Dong Thap", 100000000));
 
         //NguoiThue
-        nguoithue.Add(new NguoiThue("Nguyen Van A", "Sinh vien", "001332012194", new DateTime(2006, 4, 12), "Lam Dong", 10000000, nguoigiamho[0]));
-        nguoithue.Add(new NguoiThue("Huynh Thi B", "Giang vien", "014275050964", new DateTime(1979, 7, 23), "Dak Nong", 10000000));
-        nguoithue.Add(new NguoiThue("Tran Thanh C", "Hoc sinh", "040213044156", new DateTime(2008, 10, 4), "Hau Giang", 10000000, nguoigiamho[1]));
-        nguoithue.Add(new NguoiThue("Bui Viet D", "Sinh vien", "003089092906", new DateTime(2001, 3, 18), "Quy Nhon", 10000000));
-        nguoithue.Add(new NguoiThue("Le Cho E", "Sinh vien", "011269097896", new DateTime(2003, 12, 30), "Vinh Long", 10000000));
-        nguoithue.Add(new NguoiThue("La Van F", "Sinh vien", "076235012491", new DateTime(2000, 2, 25), "Binh Phuoc", 10000000));
-        nguoithue.Add(new NguoiThue("Nguyen Cong G", "Hoc sinh", "065180036737", new DateTime(2010, 9, 15), "Da Nang", 10000000, nguoigiamho[1]));
-        nguoithue.Add(new NguoiThue("Nguyen Le Phuong H", "Giang vien", "015076097493", new DateTime(1958, 3, 9), "Tien Giang", 10000000));
-        nguoithue.Add(new NguoiThue("Tran Van I", "That nghiep", "054032049093", new DateTime(1994, 1, 31), "Ha Noi", 10000000));
-        nguoithue.Add(new NguoiThue("Tran Minh K", "Hoc sinh", "025225034164", new DateTime(2000, 7, 1), "Bac Can", 10000000));
+        nguoithue.Add(new NguoiThue("Nguyen Van A", "Sinh vien", "001332012194", new DateTime(2006, 4, 12), "Lam Dong", 100000000, nguoigiamho[0]));
+        nguoithue.Add(new NguoiThue("Huynh Thi B", "Giang vien", "014275050964", new DateTime(1979, 7, 23), "Dak Nong", 100000000));
+        nguoithue.Add(new NguoiThue("Tran Thanh C", "Hoc sinh", "040213044156", new DateTime(2008, 10, 4), "Hau Giang", 100000000, nguoigiamho[1]));
+        nguoithue.Add(new NguoiThue("Bui Viet D", "Sinh vien", "003089092906", new DateTime(2001, 3, 18), "Quy Nhon", 100000000));
+        nguoithue.Add(new NguoiThue("Le Cho E", "Sinh vien", "011269097896", new DateTime(2003, 12, 30), "Vinh Long", 100000000));
+        nguoithue.Add(new NguoiThue("La Van F", "Sinh vien", "076235012491", new DateTime(2000, 2, 25), "Binh Phuoc", 100000000));
+        nguoithue.Add(new NguoiThue("Nguyen Cong G", "Hoc sinh", "065180036737", new DateTime(2010, 9, 15), "Da Nang", 100000000, nguoigiamho[1]));
+        nguoithue.Add(new NguoiThue("Nguyen Le Phuong H", "Giang vien", "015076097493", new DateTime(1958, 3, 9), "Tien Giang", 100000000));
+        nguoithue.Add(new NguoiThue("Tran Van I", "That nghiep", "054032049093", new DateTime(1994, 1, 31), "Ha Noi", 100000000));
+        nguoithue.Add(new NguoiThue("Tran Minh K", "Hoc sinh", "025225034164", new DateTime(2000, 7, 1), "Bac Can", 100000000));
 
         //Cong ty
         congty.Add(new CongTy("Minh Long", "2 Vo Van Ngan, phuong Linh Trung, quan Thu Duc, thanh pho Ho Chi Minh", 44332211));
+        congty.Add(new CongTy("Binh Minh", "23 Nguyen Thi Minh Khai, phuong Da Kao, quan 1, thanh pho Ho Chi Minh", 44332211));
+        congty.Add(new CongTy("Thien Phuc", "154 Luong Nhu Hoc, phuong 11, quan 5, thanh pho Ho Chi Minh", 44332211));
 
         //Nguoi Moi Gioi
         nguoimoigioi.Add(new NguoiMoiGioi("Hai Tequila N", "", "058070068497", new DateTime(1802, 1, 20), "An Giang", congty[0]));
@@ -72,7 +74,7 @@ static class LuuTru
             SoNguoi = x.SoNguoi,
             DienTich = x.DienTich,
             GiaPhong = x.GiaPhong,
-            NoiThat = string.Join(";", x.NoiThat),
+            NoiThat = (x.NoiThat == null) ? "" : string.Join(";", x.NoiThat),
             NoiQuy = (x.NoiQuy == null) ? "" : string.Join(";", x.NoiQuy),
             YeuCau = x.YeuCau,
             GioiTinh = (x.GioiTinh) ? "Nam" : "Nu",
@@ -89,7 +91,7 @@ static class LuuTru
             Gioitinh = (x.GioiTinh) ? "Nam" : "Nu",
             CCCD = x.CCCD,
             NgheNghiep = x.NgheNghiep,
-            NgaySinh = x.NgaySinh.ToString("d"),
+            NgaySinh = x.NgaySinh.ToString("dd/MM/yyyy"),
             QueQuan = x.QueQuan,
             Tien = x.Tien,
         }).ToList();
@@ -99,7 +101,7 @@ static class LuuTru
             Gioitinh = (x.GioiTinh) ? "Nam" : "Nu",
             CCCD = x.CCCD,
             NgheNghiep = x.NgheNghiep,
-            NgaySinh = x.NgaySinh.ToString("d"),
+            NgaySinh = x.NgaySinh.ToString("dd/MM/yyyy"),
             QueQuan = x.QueQuan,
             Tien = x.Tien,
             PhongTro = string.Join(";", x.PhongTro.Select(y => y.SoPhong)),
@@ -110,12 +112,12 @@ static class LuuTru
             Gioitinh = (x.GioiTinh) ? "Nam" : "Nu",
             CCCD = x.CCCD,
             NgheNghiep = x.NgheNghiep,
-            NgaySinh = x.NgaySinh.ToString("d"),
+            NgaySinh = x.NgaySinh.ToString("dd/MM/yyyy"),
             QueQuan = x.QueQuan,
             Tien = x.Tien,
             //HopDong = !(x.HD == null),
             NguoiGiamHo = (x.NguoiGiamHo == null) ? "" : x.NguoiGiamHo.HoTen,
-            SoPhong = (x.SoPhong != 0) ? "" : x.SoPhong.ToString()
+            SoPhong = (x.SoPhong == 0) ? "" : x.SoPhong.ToString(),
         }).ToList();
         var records_ct = congty.Select(x => new
         {
@@ -131,7 +133,7 @@ static class LuuTru
             Gioitinh = (x.GioiTinh) ? "Nam" : "Nu",
             CCCD = x.CCCD,
             NgheNghiep = x.NgheNghiep,
-            NgaySinh = x.NgaySinh.ToString("d"),
+            NgaySinh = x.NgaySinh.ToString("dd/MM/yyyy"),
             QueQuan = x.QueQuan,
             Tien = x.Tien,
             CongTy = (x.CT == null) ? "" : x.CT.Ten

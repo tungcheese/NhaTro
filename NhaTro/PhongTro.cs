@@ -44,6 +44,12 @@
         get { return yeucau;}
         set { yeucau = value; }
     }
+    string? kiennghi = null;
+    public string? KienNghi
+    {
+        get { return kiennghi; } //check
+        set { kiennghi = value; }
+    }
     bool gioitinh;
     public bool GioiTinh
     { 
@@ -131,6 +137,8 @@
         Console.WriteLine("|Gia phong: {0}", giaphong);
         Console.Write("|Noi that: ");
         foreach (string a in noithat) { Console.Write(a + ", "); }
+        Console.Write("\n|Noi quy: ");
+        foreach (string a in noiquy) { Console.Write(a + ", "); }
         Console.WriteLine("\n|Yeu cau rieng: {0}", yeucau);
         Console.WriteLine("---------------------------");
     }
@@ -142,6 +150,21 @@
         this.tiendien = (50000 + rnd.Next(-10, 10)) * songuoi;
         this.tiennuoc = 17750 * songuoi;
         this.tienwifi = 40 * songuoi;
+    }
+
+    public void HuyPhong()
+    {
+        if (hopdong != null)
+        {
+            CongCu.TruTien(nguoichothue, hopdong.NguoiThue[0], hopdong.TienDatCoc);
+            this.hopdong = null;
+            this.songuoi = 0;
+            this.yeucau = "";
+        }
+        else
+        {
+            Console.WriteLine("*\tPhong trong!");
+        }
     }
 
     public bool Trong()

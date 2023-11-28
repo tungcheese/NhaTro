@@ -2,12 +2,18 @@
 {
     //Unique information
     CongTy? congty;
+    int sohopdong = 0;
 
     //Get set
     public CongTy? CT
     {
         get { return congty; }
         set { congty = value; }
+    }
+    public int SoHopDong
+    {
+        get { return sohopdong; }
+        set { sohopdong = value; }
     }
 
     //Constructor
@@ -25,7 +31,7 @@
     public override void In()
     {
         base.In();
-        if (congty != null) { Console.WriteLine("Lam viec tai cong ty: {0}", congty.Ten); }
+        if (congty != null) { Console.WriteLine("Lam viec tai cong ty: {0}", congty.Ten); Console.WriteLine("Ma so thue: ", congty.MaSoThue); }
         Console.WriteLine("---------------------------");
     }
 
@@ -39,6 +45,27 @@
         {
             this.Tien += sotiennhan * 6 / 100;
             CT.TienHoaHong += sotiennhan * 4 / 100;
+        }
+    }
+
+    public void GiaNhap(CongTy congty)
+    {
+        congty.NMG.Add(this);
+        this.congty = congty;
+        Console.WriteLine("*\tGia nhap cong ty {0} thanh cong!", congty.Ten);
+    }
+
+    public void Roi()
+    {
+        if (congty != null)
+        {
+            congty.NMG.Remove(this);
+            this.congty = null;
+            Console.WriteLine("*\tRoi cong ty thanh cong!");
+        }
+        else
+        {
+            Console.WriteLine("*\tBan chua thuoc cong ty nao!");
         }
     }
 }

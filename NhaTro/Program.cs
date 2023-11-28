@@ -17,7 +17,9 @@ class Program
         //nguoithue[9].NhapTro(DateTime.Now, a[3], "", null, nguoimoigioi[0]);
         //nguoithue[2].NhapTro(DateTime.Now, a[6]);
         a.AddRange(b);
-        nguoithue[0].NhapTro(DateTime.Now, a[3]);
+        Console.WriteLine(nguoithue[0].NhapTro(DateTime.Now, a[2], "", null, nguoimoigioi[0]));
+        Console.WriteLine(nguoithue[1].NhapTro(new DateTime(2023,07,22), a[0], "", null, nguoimoigioi[0]));
+        nguoithue[0].YeuCau("Lap dieu hoa");
 
         foreach (PhongTro pt in a)
         {
@@ -26,27 +28,26 @@ class Program
 
         Console.WriteLine("Giao dien quan ly nha tro");
         while (true)
-        {            
-            Console.WriteLine("Nhap CCCD:");
-            string? cccd = Nhap("Nhap 0 de thoat");
+        {
+            string? cccd = Nhap("Nhap CCCD: \nNhap 0 de thoat");
             if (cccd == "0")
             {
                 break;
             }
             else if (nguoithue.Exists(x => x.CCCD == cccd))
             {
+                Console.WriteLine("Dang nhap tu cach: Nguoi thue");
                 Program_NguoiThue(nguoithue.Find(x=> x.CCCD.Contains(cccd)));
-                break;
             }
             else if (nguoichothue.Exists(x => x.CCCD == cccd)) 
             {
+                Console.WriteLine("Dang nhap tu cach: Nguoi cho thue");
                 Program_NguoiChoThue(nguoichothue.Find(x => x.CCCD.Contains(cccd)));
-                break;
             }
             else if (nguoimoigioi.Exists(x => x.CCCD == cccd))
             {
+                Console.WriteLine("Dang nhap tu cach: Nguoi moi gioi");
                 Program_NguoiMoiGioi(nguoimoigioi.Find(x => x.CCCD.Contains(cccd)));
-                break;
             }
             else
             {
@@ -62,8 +63,7 @@ class Program
                         DateTime ngaysinh = input.Item3;
                         string quequan = input.Item4;
                         int tuoi = input.Item5;
-                        Console.WriteLine("Ban la:\n1. Nguoi thue:\n2. Nguoi cho thue:\n3. Nguoi moi gioi:");
-                        switch (NhapSo())
+                        switch (NhapSo("Ban la:\n1. Nguoi thue:\n2. Nguoi cho thue:\n3. Nguoi moi gioi:"))
                         {
                             case 1:
                                 Menu_TaoNguoiThue(hoten, nghenghiep, cccd, ngaysinh, quequan, tuoi);

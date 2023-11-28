@@ -39,16 +39,57 @@
         }
     }
 
-    public override void HuyPhong(DateTime ngaytra, PhongTro phongtro)
+    public void TraPhong(int index)
     {
-        int songaytra = DateTime.Compare(ngaytra, phongtro.HopDong.HetHan);
-        if (songaytra < 0)
+        PhongTro? phongtro = CongCu.NguoiThuePT(this);
+        if (phongtro != null)
         {
-            Console.WriteLine("Boi thuong");
-        }
-        else if (songaytra == 0)
-        {
-            Console.WriteLine("Tra dung han");
+            if (!ThanhToan()) phongtro.HopDong.TienNo += phongtro.TienDien + phongtro.TienNuoc + phongtro.TienRac + phongtro.TienWifi;
+            HopDong hopdong = phongtro.HopDong;
+            DateTime ngaytra = hopdong.HetHan;
+            if (index == 1) { ngaytra = ngaytra.AddDays(-1); }
+            else if (index == 3) { ngaytra = ngaytra.AddDays(1); }
+
+            int songaytra = DateTime.Compare(ngaytra, hopdong.HetHan);
+            if (songaytra < 0) //truoc
+            {
+                phongtro.NguoiChoThue.Tien += hopdong.TienDatCoc;
+                hopdong.TienDatCoc = 0;
+                Console.WriteLine("*\tBan da mat tien coc");
+            }
+            else if (songaytra > 0) //sau
+            {
+                
+                int tienphat = hopdong.TienThue / 20 * songaytra;
+                if (hopdong.TienDatCoc > tienphat)
+                {
+                    hopdong.TienDatCoc -= tienphat;
+                    tienphat = 0;
+                }
+                else
+                {
+                    tienphat -= hopdong.TienDatCoc;
+                    hopdong.TienDatCoc = 0;
+                    hopdong.TienNo += tienphat;
+                }
+
+                if (hopdong.TienNo != 0)
+                {
+                    if (this.Tien < hopdong.TienNo)
+                    {
+                        phongtro.HuyPhong();
+                        return;
+                    }
+                    else
+                    {
+                        CongCu.TruTien(this, phongtro.NguoiChoThue, hopdong.TienNo);
+                        hopdong.TienNo = 0;
+                        Console.WriteLine("*\tThanh toan no thanh cong!");
+                    }
+                }
+            }
+            phongtro.HuyPhong();
+            Console.WriteLine("*\tTra phong thanh cong!");
         }
     }
 
@@ -57,7 +98,7 @@
         return !(nguoithue == null || nguoithue.GioiTinh != gioitinh);
     }
 
-    public bool NhapTro(DateTime ngaynhapphong, PhongTro phongtro, string? yeucau = "", List<NguoiThue>? nguoithue = null, NguoiMoiGioi? nmg = null)
+    public bool NhapTro(DateTime ngaynhapphong, PhongTro phongtro, string? yeucau = "", List<NguoiThue>? nguoithue = null, NguoiMoiGioi? nguoimoigioi = null)
     {
         //Kiem tra dieu kien nhap tro
         if (!phongtro.Trong()) { return false; }
@@ -70,7 +111,7 @@
         {
             //duoi 18 tuoi tru tien nguoi giam ho
             if (this.NguoiGiamHo != null) 
-                if (this.NguoiGiamHo.Tien < 6000000 + phongtro.GiaPhong) { return false; }
+                if (this.NguoiGiamHo.Tien < 6000000 + 6 * phongtro.GiaPhong) { return false; }
         }
         else
         {
@@ -87,31 +128,50 @@
         List<NguoiThue> dsnguoithue = new List<NguoiThue> { this };
         if (nguoithue != null) { dsnguoithue.AddRange(nguoithue); }
         //Khoi tao hopdong
-        HopDong hopdong = new HopDong(dsnguoithue, phongtro, phongtro.GiaPhong, ngaynhapphong);
+        HopDong hopdong = new HopDong(dsnguoithue, phongtro, phongtro.GiaPhong, ngaynhapphong, nguoimoigioi);
         phongtro.HopDong = hopdong;
-        if (yeucau != null) phongtro.YeuCau = yeucau;
+        if (yeucau != null) phongtro.KienNghi = yeucau;
         else phongtro.YeuCau = "";
         this.sophong = phongtro.SoPhong;
 
         //Tinh so nguoi trong phong
         phongtro.SoNguoi = dsnguoithue.Count;
 
-        if (nmg != null) //Cong tien cho Nguoi moi gioi (neu co)
+        if (nguoimoigioi != null) //Cong tien cho Nguoi moi gioi (neu co)
         {
-            nmg.NhanTien(600000);
+            nguoimoigioi.SoHopDong++;
+            nguoimoigioi.NhanTien(600000);
             phongtro.NguoiChoThue.Tien -= 600000;
         }
         return true;
     }
 
-    public bool GiaHan()
+    public void GiaHan()
     {
         PhongTro? phongtro = CongCu.NguoiThuePT(this);
-        if (phongtro == null) { return false; }
-        return phongtro.HopDong.GiaHan();
+        if (phongtro != null)
+        {
+            DateTime temp = phongtro.HopDong.HetHan;
+            Console.WriteLine("Ngay het han: {0}", temp.ToString("dd/MM/yyyy"));
+            Console.WriteLine("Gia han den: {0}", temp.AddMonths(6).ToString("dd/MM/yyyy"));
+            Console.WriteLine("Tong cong: {0}", 6 * phongtro.HopDong.TienThue + phongtro.HopDong.TienNo);
+            int input = CongCu.NhapSo("Ban muon gia han hay khong?\n1. Co\t2.Khong: ", 1, 2);
+            if (input == 1)
+            {
+                if (6 * phongtro.HopDong.TienThue < this.Tien)
+                {
+                    CongCu.TruTien(this, phongtro.NguoiChoThue, 6 * phongtro.HopDong.TienThue + phongtro.HopDong.TienNo);
+                    phongtro.HopDong.TienNo = 0;
+                }
+                else Console.WriteLine("*\tBan khong du tien de gia han");
+            }
+            else Console.WriteLine("*\tHuy gia han");
+            
+        }
+        else Console.WriteLine("*\tBan chua co phong tro");
     }
 
-    public void ThanhToan()
+    public bool ThanhToan()
     {
         PhongTro? phongtro = CongCu.NguoiThuePT(this);
         if (phongtro != null)
@@ -127,19 +187,29 @@
             }
             else
             {
-                Console.WriteLine("Khong co gi de thanh toan!");
-                return;
+                Console.WriteLine("*\tKhong co gi de thanh toan!");
+                return true;
             }
             int input = CongCu.NhapSo("Ban co muon thanh toan khong?\n1. Co\t2.Khong", 1, 2);
             if (this.Tien >= tientong)
                 if (input == 1)
                 {
                     CongCu.TruTien(this, phongtro.NguoiChoThue, tientong);
-                    Console.WriteLine("Thanh toan thanh cong!");
+                    phongtro.TienDien = 0;
+                    phongtro.TienNuoc = 0;
+                    phongtro.TienRac = 0;
+                    phongtro.TienWifi = 0;
+                    Console.WriteLine("*\tThanh toan thanh cong!");
+                    return true;
                 }
-                else Console.WriteLine("Da huy thanh toan");
-            else Console.WriteLine("Ban khong du tien de thanh toan");
+                else Console.WriteLine("*\tDa huy thanh toan");
+            else
+            {
+                Console.WriteLine("*\tBan khong du tien de thanh toan");
+                return false;
+            }
         }
+        return true;
     }
 
     public void YeuCau(string yeucau)
@@ -147,9 +217,9 @@
         PhongTro? phongtro = CongCu.NguoiThuePT(this);
         if (phongtro != null)
         {
-            phongtro.YeuCau = yeucau;
+            phongtro.KienNghi = yeucau;
         }
-        Console.WriteLine("Da gui yeu cau thanh cong!");
+        Console.WriteLine("*\tDa gui yeu cau thanh cong!");
     }
 
     public void LamHong()
@@ -159,13 +229,8 @@
             if (phongtro.NoiThat != null)
             {
                 Random rnd = new Random();
-                foreach (string item in phongtro.NoiThat)
-                {
-                    for (int i = 1; i < rnd.Next(3); i++)
-                    {
-                        phongtro.NoiThat.RemoveAt(rnd.Next(phongtro.NoiThat.Count()));
-                    }
-                }
+                int index = rnd.Next(0, phongtro.NoiThat.Count);
+                phongtro.NoiThat.RemoveAt(index);
             }
     }
    

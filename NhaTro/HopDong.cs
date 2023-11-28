@@ -13,10 +13,17 @@
         get { return nguoithue; } 
         set { nguoithue = value; }
     }
+    NguoiMoiGioi? nguoimoigioi;
+    public NguoiMoiGioi? NguoiMoiGioi
+    {
+        get { return nguoimoigioi; }
+        set { nguoimoigioi = value; }
+    }
 
     //Info
     int tiendatcoc = 6000000;
     int tienthue;
+    int tienno = 0;
     public int TienDatCoc 
     { 
         get { return tiendatcoc; } 
@@ -26,6 +33,11 @@
     { 
         get { return tienthue; } 
         set { tienthue = value; }
+    }
+    public int TienNo
+    {
+        get { return tienno; }
+        set { tienno = value; }
     }
 
     //ThoiHan
@@ -43,7 +55,7 @@
     }
 
     //Constructor
-    public HopDong(List<NguoiThue> nguoithue, PhongTro phongtro, int tienthue, DateTime batdau)
+    public HopDong(List<NguoiThue> nguoithue, PhongTro phongtro, int tienthue, DateTime batdau, NguoiMoiGioi? nguoimoigioi = null)
     {
         this.nguoithue = nguoithue;
         this.tienthue = tienthue;
@@ -52,6 +64,7 @@
         //Thoi han
         this.batdau = batdau;
         this.hethan = batdau.AddMonths(6);
+        this.nguoimoigioi = nguoimoigioi;
 
         //tinh tien
         if (nguoithue[0].NguoiGiamHo == null)
@@ -65,17 +78,10 @@
         LuuTru.hopdong.Add(this);
     }
 
-    public bool GiaHan()
-    {
-        hethan = HetHan.AddMonths(6);
-        Console.WriteLine("Gia han den {0} thanh cong!", hethan.ToString("d"));
-        return true;
-    }
-
     public void In()
     {
         Console.WriteLine("|Nguoi thue: {0}", string.Join(";", nguoithue.Select(x=>x.HoTen)));
-        Console.WriteLine("|Ngay bat dau: {0}", BatDau.ToString("d"));
-        Console.WriteLine("|Ngay het han: {0}", HetHan.ToString("d"));
+        Console.WriteLine("|Ngay bat dau: {0}", BatDau.ToString("dd/MM/yyyy"));
+        Console.WriteLine("|Ngay het han: {0}", HetHan.ToString("dd/MM/yyyy"));
     }
 }

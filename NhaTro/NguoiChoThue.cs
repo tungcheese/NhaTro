@@ -1,4 +1,6 @@
-﻿public class NguoiChoThue: Nguoi
+﻿using System;
+
+public class NguoiChoThue: Nguoi
 {
     //Thong tin ve phong tro
     List<PhongTro> phongtro = new List<PhongTro>();
@@ -13,16 +15,25 @@
         :base (hoten, nghenghiep, cccd, ngaysinh, quequan)
     {
     }
-    public override void HuyPhong(DateTime ngaytra, PhongTro phongtro)
+    public void ThuHoi(PhongTro phongtro, int index)
     {
-        int songaytra = DateTime.Compare(ngaytra, phongtro.HopDong.HetHan);
-        if (songaytra < 0)
+        if (phongtro.HopDong != null)
         {
-            Console.WriteLine("Boi thuong");
-        } 
-        else if (songaytra == 0)
+            HopDong hopdong = phongtro.HopDong;
+            DateTime ngaytra = hopdong.HetHan;
+            if (index == 1) { ngaytra = ngaytra.AddDays(-1); }
+
+            int songaytra = DateTime.Compare(ngaytra, hopdong.HetHan);
+            if (songaytra < 0)
+            {
+                hopdong.TienDatCoc += hopdong.TienThue / 20 * songaytra;
+            }
+            phongtro.HuyPhong();
+            Console.WriteLine("*\tThu hoi phong thanh cong!");
+        }
+        else
         {
-            Console.WriteLine("Tra dung han");
+            Console.WriteLine("*\tPhong tro trong!");
         }
     }
     public void DienNuoc()
@@ -49,9 +60,39 @@
         Console.WriteLine("Tien wifi thang nay: {0}", tienwifi);
         Console.WriteLine("---------------------------");
     }
-    public List<string> KiemTra(PhongTro phongtro) //return danh sach bi hong
+    public List<string>? KiemTra(PhongTro phongtro) //return danh sach bi hong
     {
-        var hong = phongtro.HopDong.NoiThat.Except(phongtro.NoiThat).ToList();
-        return hong;
+        return phongtro.HopDong.NoiThat.Except(phongtro.NoiThat).ToList();
+    }
+
+    public void KiemTraYeuCau()
+    {
+        if (phongtro != null)
+        {
+            bool check = true;
+            foreach (PhongTro pt in phongtro)
+            {
+                if (pt.KienNghi?.Any() ?? false)
+                {
+                    if (check) check = false;
+                    Console.WriteLine("Phong tro: {0}",pt.SoPhong);
+                    Console.WriteLine("Co yeu cau: {0}", pt.KienNghi);
+                    int input = CongCu.NhapSo("Co chap thuan hay khong?\n1. Co\t2. Khong", 1, 2);
+                    if (input == 1)
+                    {
+                        pt.YeuCau = pt.KienNghi;
+                        pt.KienNghi = null;
+                        Console.WriteLine("*\tYeu cau duoc chap thuan!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("*\tHuy bo yeu cau!");
+                        pt.KienNghi = null;
+                    }
+                }
+            }
+            if (check) { Console.WriteLine("*\tKhong co yeu cau nao!"); }
+        }
+        else Console.WriteLine("*\tBan khong co phong tro!");
     }
 }
