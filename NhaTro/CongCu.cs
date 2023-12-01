@@ -13,7 +13,7 @@ static class CongCu
         }
         return null;
     }
-    public static string Tao()
+    /*public static string Tao()
     {
         Random rnd = new();
         int mavung = rnd.Next(97);
@@ -27,7 +27,7 @@ static class CongCu
             socuoi += rnd.Next(10).ToString();
         }
         return smavung + mavung.ToString() + gioitinh.ToString() + snamsinh + namsinh.ToString() + "0" + socuoi;
-    }
+    }*/
     public static bool GioiTinh(string cccd)
     {
         int gioitinh = Int32.Parse(cccd.Substring(3, 1));
@@ -287,7 +287,7 @@ static class CongCu
         Console.WriteLine("* 3. Noi that: ");
         string? tempnoithat = Nhap("1. Tu lanh \t2. May lanh \n" +
             "3. May giat \t4. Tu quan ao \n" +
-            "5. Gac xep \t6. Camera an ninh \n" +
+            "5. Gac xep \t6. Camera an ninh \n" + "7. Khong can noi that\n"+
             "Nhap day so mong muon (vd tu lanh may giat <=> 13)");
         List<string>? noithat = null;
         List<int> explored = new List<int>();
@@ -318,6 +318,9 @@ static class CongCu
                             break;
                         case 6:
                             noithat.Add("Camera an ninh");
+                            break;
+                        case 7:
+                            noithat = null;
                             break;
                     }
                     explored.Add(num);

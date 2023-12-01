@@ -19,6 +19,7 @@ class Program
         a.AddRange(b);
         Console.WriteLine(nguoithue[0].NhapTro(DateTime.Now, a[2], "", null, nguoimoigioi[0]));
         Console.WriteLine(nguoithue[1].NhapTro(new DateTime(2023,07,22), a[0], "", null, nguoimoigioi[0]));
+        Console.WriteLine(nguoithue[2].NhapTro(new DateTime(2023, 09, 06), a[2], "", null, nguoimoigioi[1]));
         nguoithue[0].YeuCau("Lap dieu hoa");
 
         foreach (PhongTro pt in a)
